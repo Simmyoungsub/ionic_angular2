@@ -18,7 +18,7 @@ export class WeatherProvider {
   }
 
   getWeather(city,state){
-      return {
+      let weather = {
           "response": {
           "version": "0.1",
           "termsofService": "http://www.wunderground.com/weather/api/d/terms.html",
@@ -28,9 +28,9 @@ export class WeatherProvider {
           },
           "current_observation": {
           "image": {
-          "url": "http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
-          "title": "Weather Underground",
-          "link": "http://www.wunderground.com"
+            "url": "http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+            "title": "Weather Underground",
+            "link": "http://www.wunderground.com"
           },
           "display_location": {
               "full": "San Francisco, CA",
@@ -108,5 +108,12 @@ export class WeatherProvider {
           "ob_url": "http://www.wunderground.com/cgi-bin/findweather/getForecast?query=37.773285,-122.417725"
           }
       };
+      if(state !== "" && city !== ""){
+        weather.current_observation.display_location.full = city+", "+state;
+        weather.current_observation.display_location.city = city;
+        weather.current_observation.display_location.state = state;
+      }
+
+      return weather;
   }
 }
